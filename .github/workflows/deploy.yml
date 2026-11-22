@@ -1,0 +1,60 @@
+name: Deploy Unit 8 Profile App
+
+on:
+  push:
+    branches:
+      - unit8-profile-deploy
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.47.7'
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Install Flutter packages
+        working-directory: ./B/TACLUYAN_JESSEANTOINE/tacluyan_unit8_exercise
+        run: flutter pub get
+
+      - name: Build web release
+        working-directory: ./B/TACLUYAN_JESSEANTOINE/tacluyan_unit8_exercise
+        run: >-
+          flutter build web --release
+          --base-href "/${{ github.event.repository.name }}/"
+          --dart-define=OMDB_KEY=${{ secrets.OMDB_KEY }}
+          --dart-define=CMS_URL=${{ vars.CMS_URL }}
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./B/TACLUYAN_JESSEANTOINE/tacluyan_unit8_exercise/build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

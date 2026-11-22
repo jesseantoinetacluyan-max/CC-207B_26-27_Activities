@@ -1,0 +1,3 @@
+No new instructional comments were added to the Dart source or generated GitHub Actions workflow.
+The preparation script adds the webHtmlElementStrategy: WebHtmlElementStrategy.fallback parameter to the two existing external Image.network widgets in your existing Unit 7 lib/main.dart. These are code parameters, not comments, and should remain.
+The script preserves your existing main.dart and existing profile information. It does not replace the file.

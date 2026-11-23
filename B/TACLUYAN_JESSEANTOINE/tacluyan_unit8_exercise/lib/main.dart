@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
-const String studentName = 'Your Full Name';
-const String petName = 'Your Pet Name';
+const String studentName = 'Jesse Antoine G. Tacluyan';
+const String petName = 'Coby';
 const String animalDescription = 'This is my pet.';
 
-const String yearAndSection = 'Your Year and Section';
-const String favoriteGame = 'Your favorite game';
-const String favoriteFood = 'Your favorite food';
+const String yearAndSection = 'BSIT 3-B';
+const String favoriteGame = 'Tetris';
+const String favoriteFood = 'Chicken Nuggets';
 
 const String omdbKey = String.fromEnvironment('OMDB_KEY');
 const String cmsUrl = String.fromEnvironment(
